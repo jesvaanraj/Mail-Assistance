@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Medical Symptom Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>🩺 AI Medical Symptom Assistant</h1>
+    <p>Describe how you feel and get general information. This is <strong>not a diagnosis</strong>.</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Patient Information</h2>
+      <form id="form">
+        <div class="row">
+          <label>Age
+            <input type="number" id="age" min="0" max="120" placeholder="e.g. 22">
+          </label>
+          <label>Sex
+            <select id="sex">
+              <option value="">Prefer not to say</option>
+              <option>Female</option>
+              <option>Male</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>Severity
+            <select id="severity">
+              <option value="">Not sure</option>
+              <option>Mild</option>
+              <option>Moderate</option>
+              <option>Severe</option>
+            </select>
+          </label>
+        </div>
+
+        <label>Symptoms * <small>(describe in your own words)</small>
+          <textarea id="symptoms" rows="4" required
+            placeholder="I've had a fever and cough since yesterday. I also feel tired and have a mild headache."></textarea>
+        </label>
+
+        <label>Duration
+          <input type="text" id="duration" placeholder="e.g. 2 days">
+        </label>
+
+        <label>Existing medical conditions
+          <input type="text" id="conditions" placeholder="e.g. asthma, diabetes (optional)">
+        </label>
+
+        <div class="row">
+          <label>Current medications
+            <input type="text" id="medications" placeholder="optional">
+          </label>
+          <label>Allergies
+            <input type="text" id="allergies" placeholder="optional">
+          </label>
+        </div>
+
+        <button type="submit" id="submit">Analyze Symptoms</button>
+        <p class="hint">If you think this is an emergency, call <strong>112</strong> (India) or your local emergency number now.</p>
+      </form>
+    </section>
+
+    <div id="loading" class="card hidden">Analyzing your symptoms…</div>
+    <div id="error" class="card error hidden"></div>
+
+    <section id="result" class="hidden">
+      <div id="risk" class="risk"></div>
+
+      <div class="card">
+        <h3>Reported Symptoms</h3>
+        <ul id="symptomsList"></ul>
+        <p><strong>Duration:</strong> <span id="durationOut"></span></p>
+      </div>
+
+      <div class="card">
+        <h3>Possible Conditions</h3>
+        <ol id="conditionsList"></ol>
+        <h3>Why These Were Considered</h3>
+        <p id="why"></p>
+      </div>
+
+      <div class="card">
+        <h3>Additional Information Needed</h3>
+        <ul id="followList"></ul>
+        <h3>General Self-care</h3>
+        <ul id="careList"></ul>
+      </div>
+
+      <div class="card">
+        <h3>Medical Attention</h3>
+        <p id="attention"></p>
+        <p class="disclaimer" id="disclaimer"></p>
+        <button type="button" id="download" class="secondary">⬇ Download Report (.txt)</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>Educational project – 24CS2506 Experiment 6. Not a substitute for professional medical advice.</footer>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
